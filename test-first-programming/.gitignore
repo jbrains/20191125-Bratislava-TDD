@@ -6,3 +6,7 @@ build
 
 # IntelliJ IDEA
 .idea
+
+# jqwik
+.jqwik-database
+

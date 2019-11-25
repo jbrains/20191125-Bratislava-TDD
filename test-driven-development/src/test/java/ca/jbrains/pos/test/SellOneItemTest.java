@@ -1,5 +1,8 @@
 package ca.jbrains.pos.test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -55,10 +58,13 @@ public class SellOneItemTest {
             if ("".equals(barcode))
                 display.setText("Scanning error: empty barcode");
             else {
-                if ("12345".equals(barcode))
-                    display.setText("7,95\u00A0€");
-                else if ("23456".equals(barcode))
-                    display.setText("12,50\u00A0€");
+                final Map<String, String> pricesByBarcode = new HashMap<String, String>() {{
+                    put("12345", "7,95\u00A0€");
+                    put("23456", "12,50\u00A0€");
+                }};
+
+                if (pricesByBarcode.containsKey(barcode))
+                    display.setText(pricesByBarcode.get(barcode));
                 else
                     display.setText(String.format("Product not found: %s", barcode));
             }

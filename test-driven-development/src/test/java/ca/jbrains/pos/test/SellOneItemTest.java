@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 public class SellOneItemTest {
     @Test
     void productFound() throws Exception {
-        final Sale sale = new Sale();
         final Display display = new Display();
+        final Sale sale = new Sale(display);
 
         sale.onBarcode("12345");
 
@@ -15,13 +15,26 @@ public class SellOneItemTest {
     }
 
     public static class Sale {
+        private Display display;
+
+        public Sale(Display display) {
+            this.display = display;
+        }
+
         public void onBarcode(String barcode) {
+            display.setText("7,95 EUR");
         }
     }
-    
+
     public static class Display {
+        private String text;
+
         public String getText() {
-            return "7,95 EUR";
+            return text;
+        }
+
+        private void setText(final String text) {
+            this.text = text;
         }
     }
 }

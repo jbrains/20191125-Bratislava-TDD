@@ -31,15 +31,13 @@ public class AddFractionsTest {
     @Test
     void sameDenominator() throws Exception {
         Fraction sum = new Fraction(1, 3).plus(new Fraction(1, 3));
-        Assertions.assertEquals(2, sum.getNumerator());
-        Assertions.assertEquals(3, sum.getDenominator());
+        Assertions.assertEquals(new Fraction(2, 3), sum);
     }
 
     @Test
     void relativelyPrimeDenominators() throws Exception {
         Fraction sum = new Fraction(3, 4).plus(new Fraction(2, 3));
-        Assertions.assertEquals(17, sum.getNumerator());
-        Assertions.assertEquals(12, sum.getDenominator());
+        Assertions.assertEquals(new Fraction(17, 12), sum);
     }
 
     public static class Fraction {

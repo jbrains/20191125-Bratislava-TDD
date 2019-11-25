@@ -29,11 +29,11 @@ public class AddFractionsTest {
             this.integerValue = integerValue;
         }
 
-        public Fraction plus(Fraction fraction) {
-            if (fraction.integerValue == 0)
+        public Fraction plus(Fraction that) {
+            if (that.integerValue == 0)
                 return this;
             else
-                return fraction;
+                return that;
         }
 
         public int intValue() {

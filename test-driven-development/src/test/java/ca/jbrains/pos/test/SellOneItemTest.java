@@ -11,7 +11,7 @@ public class SellOneItemTest {
 
         sale.onBarcode("12345");
 
-        Assertions.assertEquals("7,95 EUR", display.getText());
+        Assertions.assertEquals("7,95 €", display.getText());
     }
 
     @Test
@@ -21,7 +21,7 @@ public class SellOneItemTest {
 
         sale.onBarcode("23456");
 
-        Assertions.assertEquals("12,50 EUR", display.getText());
+        Assertions.assertEquals("12,50 €", display.getText());
     }
 
     @Test
@@ -43,9 +43,9 @@ public class SellOneItemTest {
 
         public void onBarcode(String barcode) {
             if ("12345".equals(barcode))
-                display.setText("7,95 EUR");
+                display.setText("7,95 €");
             else if ("23456".equals(barcode))
-                display.setText("12,50 EUR");
+                display.setText("12,50 €");
             else
                 display.setText(String.format("Product not found: %s", barcode));
         }

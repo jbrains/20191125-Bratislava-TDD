@@ -7,25 +7,25 @@ public class AddFractionsTest {
     @Test
     void zeroPlusZero() throws Exception {
         Fraction sum = new Fraction(0).plus(new Fraction(0));
-        Assertions.assertEquals(0, sum.intValue());
+        Assertions.assertEquals(new Fraction(0), sum);
     }
 
     @Test
     void notZeroPlusZero() throws Exception {
         Fraction sum = new Fraction(4).plus(new Fraction(0));
-        Assertions.assertEquals(4, sum.intValue());
+        Assertions.assertEquals(new Fraction(4), sum);
     }
 
     @Test
     void zeroPlusNotZero() throws Exception {
         Fraction sum = new Fraction(0).plus(new Fraction(7));
-        Assertions.assertEquals(7, sum.intValue());
+        Assertions.assertEquals(new Fraction(7), sum);
     }
 
     @Test
     void notZeroPlusNotZero() throws Exception {
         Fraction sum = new Fraction(5).plus(new Fraction(8));
-        Assertions.assertEquals(13, sum.intValue());
+        Assertions.assertEquals(new Fraction(13), sum);
     }
 
     @Test

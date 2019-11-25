@@ -85,17 +85,5 @@ public class AddFractionsTest {
         public String toString() {
             return String.format("%d/%d", numerator, denominator);
         }
-
-        public int intValue() {
-            return numerator;
-        }
-
-        public int getNumerator() {
-            return numerator;
-        }
-
-        public int getDenominator() {
-            return denominator;
-        }
     }
 }

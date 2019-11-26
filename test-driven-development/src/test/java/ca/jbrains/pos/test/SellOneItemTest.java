@@ -1,10 +1,10 @@
 package ca.jbrains.pos.test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SellOneItemTest {
     @Test
@@ -69,14 +69,34 @@ public class SellOneItemTest {
         }
 
         public void onBarcode(String barcode) {
-            if ("".equals(barcode))
-                display.setText("Scanning error: empty barcode");
-            else {
-                if (pricesByBarcode.containsKey(barcode))
-                    display.setText(pricesByBarcode.get(barcode));
-                else
-                    display.setText(String.format("Product not found: %s", barcode));
+            if ("".equals(barcode)) {
+                displayScannedEmptyBarcodeMessage();
             }
+            else {
+                final String priceAsText = findPrice(barcode);
+                if (priceAsText != null) {
+                    displayPrice(priceAsText);
+                }
+                else {
+                    displayProductNotFoundMessage(barcode);
+                }
+            }
+        }
+
+        private String findPrice(String barcode) {
+            return pricesByBarcode.get(barcode);
+        }
+
+        private void displayPrice(String priceAsText) {
+            display.setText(priceAsText);
+        }
+
+        private void displayScannedEmptyBarcodeMessage() {
+            display.setText("Scanning error: empty barcode");
+        }
+
+        private void displayProductNotFoundMessage(String barcode) {
+            display.setText(String.format("Product not found: %s", barcode));
         }
     }
 

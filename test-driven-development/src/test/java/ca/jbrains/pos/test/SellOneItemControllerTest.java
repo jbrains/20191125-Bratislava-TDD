@@ -29,6 +29,16 @@ public class SellOneItemControllerTest {
         Mockito.verify(display).displayProductNotFoundMessage("::missing barcode::");
     }
 
+    @Test
+    void emptyBarcode() throws Exception {
+        final Catalog catalog = Mockito.mock(Catalog.class);
+        final Display display = Mockito.mock(Display.class);
+
+        new SellOneItemController(catalog, display).onBarcode("");
+
+        Mockito.verify(display).displayScannedEmptyBarcodeMessage();
+    }
+
     public interface Catalog {
         Price findPrice(String barcode);
     }
@@ -37,6 +47,8 @@ public class SellOneItemControllerTest {
         void displayPrice(Price price);
 
         void displayProductNotFoundMessage(String missingBarcode);
+
+        void displayScannedEmptyBarcodeMessage();
     }
 
     public static class Price {
@@ -60,6 +72,11 @@ public class SellOneItemControllerTest {
         }
 
         public void onBarcode(String barcode) {
+            if ("".equals(barcode)) {
+                display.displayScannedEmptyBarcodeMessage();
+                return;
+            }
+            
             final Price price = catalog.findPrice(barcode);
             if (price == null) {
                 display.displayProductNotFoundMessage(barcode);

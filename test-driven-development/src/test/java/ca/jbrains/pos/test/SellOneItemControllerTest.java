@@ -4,8 +4,6 @@ import io.vavr.control.Option;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.util.Optional;
-
 public class SellOneItemControllerTest {
     @Test
     void productFound() throws Exception {
@@ -84,8 +82,8 @@ public class SellOneItemControllerTest {
                 return;
             }
             
-            final Price price = catalog.findPrice_LegacyNullableVersion(barcode);
-            if (price == null) {
+            final Option<Price> price = catalog.findPrice(barcode);
+            if (price.isEmpty()) {
                 display.displayProductNotFoundMessage(barcode);
             }
             else {

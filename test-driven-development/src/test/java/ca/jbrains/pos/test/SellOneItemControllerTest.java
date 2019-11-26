@@ -86,7 +86,7 @@ public class SellOneItemControllerTest {
                 display.displayProductNotFoundMessage(barcode);
             }
             else {
-                display.displayPrice(price);
+                display.displayPrice(catalog.findPrice(barcode).get());
             }
         }
     }

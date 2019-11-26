@@ -4,6 +4,8 @@ import io.vavr.control.Option;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.util.Optional;
+
 public class SellOneItemControllerTest {
     @Test
     void productFound() throws Exception {
@@ -25,6 +27,7 @@ public class SellOneItemControllerTest {
         final Display display = Mockito.mock(Display.class);
 
         Mockito.when(catalog.findPrice_LegacyNullableVersion("::missing barcode::")).thenReturn(null);
+        Mockito.when(catalog.findPrice("::missing barcode::")).thenReturn(Option.none());
 
         new SellOneItemController(catalog, display).onBarcode("::missing barcode::");
 

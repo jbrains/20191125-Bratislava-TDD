@@ -1,5 +1,6 @@
 package ca.jbrains.pos.test;
 
+import io.vavr.control.Option;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -11,6 +12,7 @@ public class SellOneItemControllerTest {
 
         final Price matchingPrice = Price.cents(795);
         Mockito.when(catalog.findPrice_LegacyNullableVersion("::matching barcode::")).thenReturn(matchingPrice);
+        Mockito.when(catalog.findPrice("::matching barcode::")).thenReturn(Option.of(matchingPrice));
 
         new SellOneItemController(catalog, display).onBarcode("::matching barcode::");
 
@@ -41,6 +43,8 @@ public class SellOneItemControllerTest {
 
     public interface Catalog {
         Price findPrice_LegacyNullableVersion(String barcode);
+
+        Option<Price> findPrice(String barcode);
     }
 
     public interface Display {

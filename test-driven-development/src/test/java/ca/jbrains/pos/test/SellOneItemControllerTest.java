@@ -10,9 +10,9 @@ public class SellOneItemControllerTest {
         final Display display = Mockito.mock(Display.class);
 
         final Price matchingPrice = Price.cents(795);
-        Mockito.when(catalog.findPrice("12345")).thenReturn(matchingPrice);
+        Mockito.when(catalog.findPrice("::matching barcode::")).thenReturn(matchingPrice);
 
-        new SellOneItemController(catalog, display).onBarcode("12345");
+        new SellOneItemController(catalog, display).onBarcode("::matching barcode::");
 
         Mockito.verify(display).displayPrice(matchingPrice);
     }

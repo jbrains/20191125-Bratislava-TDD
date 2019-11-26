@@ -11,7 +11,6 @@ public class SellOneItemControllerTest {
         final Display display = Mockito.mock(Display.class);
 
         final Price matchingPrice = Price.cents(795);
-        Mockito.when(catalog.findPrice_LegacyNullableVersion("::matching barcode::")).thenReturn(matchingPrice);
         Mockito.when(catalog.findPrice("::matching barcode::")).thenReturn(Option.of(matchingPrice));
 
         new SellOneItemController(catalog, display).onBarcode("::matching barcode::");
@@ -24,7 +23,6 @@ public class SellOneItemControllerTest {
         final Catalog catalog = Mockito.mock(Catalog.class);
         final Display display = Mockito.mock(Display.class);
 
-        Mockito.when(catalog.findPrice_LegacyNullableVersion("::missing barcode::")).thenReturn(null);
         Mockito.when(catalog.findPrice("::missing barcode::")).thenReturn(Option.none());
 
         new SellOneItemController(catalog, display).onBarcode("::missing barcode::");
@@ -43,8 +41,6 @@ public class SellOneItemControllerTest {
     }
 
     public interface Catalog {
-        Price findPrice_LegacyNullableVersion(String barcode);
-
         Option<Price> findPrice(String barcode);
     }
 

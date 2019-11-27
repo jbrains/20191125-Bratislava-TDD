@@ -62,12 +62,18 @@ public class DisplayMessagesToAWriterTest {
         );
     }
 
+    public static class FormatPriceTest {
+        @Test
+        void happyPath() throws Exception {
+            Assertions.assertEquals("14,97\u00a0€", WriterDisplay.formatPrice(Price.cents(1497)));
+        }
+    }
     // REFACTOR Move me to a generic text-processing library
     private static List<String> lines(String multilineText) {
         return Arrays.asList(multilineText.split("\\R"));
     }
 
-    private class WriterDisplay {
+    private static class WriterDisplay {
 
         private final PrintWriter out;
 
@@ -84,7 +90,11 @@ public class DisplayMessagesToAWriterTest {
         }
 
         public void displayPrice(Price price) {
-            out.println(String.format(Locale.forLanguageTag("sk"), "%.2f\u00a0€", price.euro()));
+            out.println(formatPrice(price));
+        }
+
+        public static String formatPrice(Price price) {
+            return String.format(Locale.forLanguageTag("sk"), "%.2f\u00a0€", price.euro());
         }
     }
 }

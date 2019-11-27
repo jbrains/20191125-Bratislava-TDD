@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class DisplayMessagesToAWriterTest {
 
@@ -62,7 +63,7 @@ public class DisplayMessagesToAWriterTest {
         }
 
         public void displayPrice(Price price) {
-            out.println("17,95\u00a0€");
+            out.println(String.format(Locale.forLanguageTag("sk"), "%.2f\u00a0€", 17.95d));
         }
     }
 }

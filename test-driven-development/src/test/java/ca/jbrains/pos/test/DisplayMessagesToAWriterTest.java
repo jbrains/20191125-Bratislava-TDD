@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 public class DisplayMessagesToAWriterTest {
     private StringWriter canvas = new StringWriter();
-    private final WriterDisplay writerDisplay = new WriterDisplay(canvas);
+    private final WriterDisplay writerDisplay = new WriterDisplay(canvas, new EnglishLanguageSlovakNumberFormat());
 
     @Test
     void severalMessages() throws Exception {
@@ -40,22 +40,23 @@ public class DisplayMessagesToAWriterTest {
 
     private static class WriterDisplay {
         private final PrintWriter out;
-        private final EnglishLanguageSlovakNumberFormat englishLanguageSlovakNumberFormat = new EnglishLanguageSlovakNumberFormat();
+        private final SellOneItemControllerResponseMessageFormat sellOneItemControllerResponseMessageFormat;
 
-        public WriterDisplay(StringWriter canvas) {
+        public WriterDisplay(StringWriter canvas, final SellOneItemControllerResponseMessageFormat sellOneItemControllerResponseMessageFormat) {
             out = new PrintWriter(canvas);
+            this.sellOneItemControllerResponseMessageFormat = sellOneItemControllerResponseMessageFormat;
         }
 
         public void displayScannedEmptyBarcodeMessage() {
-            out.println(englishLanguageSlovakNumberFormat.formatScannedEmptyBarcodeMessage());
+            out.println(sellOneItemControllerResponseMessageFormat.formatScannedEmptyBarcodeMessage());
         }
 
         public void displayProductNotFoundMessage(String barcodeNotFound) {
-            out.println(englishLanguageSlovakNumberFormat.formatProductNotFoundMessage(barcodeNotFound));
+            out.println(sellOneItemControllerResponseMessageFormat.formatProductNotFoundMessage(barcodeNotFound));
         }
 
         public void displayPrice(Price price) {
-            out.println(englishLanguageSlovakNumberFormat.formatPrice(price));
+            out.println(sellOneItemControllerResponseMessageFormat.formatPrice(price));
         }
     }
 }

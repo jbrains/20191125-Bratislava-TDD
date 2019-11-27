@@ -13,16 +13,7 @@ public class DisplayMessagesToAWriterTest {
 
     private StringWriter canvas = new StringWriter();
     private final WriterDisplay writerDisplay = new WriterDisplay(canvas);
-
-    @Test
-    void emptyBarcode() throws Exception {
-        writerDisplay.displayScannedEmptyBarcodeMessage();
-
-        Assertions.assertEquals(
-                Arrays.asList("Scanning error: empty barcode"),
-                lines(canvas.toString()));
-    }
-
+    
     @Test
     void productNotFound() throws Exception {
         writerDisplay.displayProductNotFoundMessage("::missing barcode::");

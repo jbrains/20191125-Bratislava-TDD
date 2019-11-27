@@ -75,15 +75,27 @@ public class DisplayMessagesToAWriterTest {
         }
 
         public void displayScannedEmptyBarcodeMessage() {
-            out.println("Scanning error: empty barcode");
+            out.println(formatScannedEmptyBarcodeMessage());
+        }
+
+        private String formatScannedEmptyBarcodeMessage() {
+            return "Scanning error: empty barcode";
         }
 
         public void displayProductNotFoundMessage(String barcodeNotFound) {
-            out.println(String.format("Product not found: %s", barcodeNotFound));
+            out.println(formatProductNotFoundMessage(barcodeNotFound));
+        }
+
+        private String formatProductNotFoundMessage(String barcodeNotFound) {
+            return String.format("Product not found: %s", barcodeNotFound);
         }
 
         public void displayPrice(Price price) {
-            out.println(EnglishLanguageSlovakNumberFormat.formatPrice(price));
+            out.println(formatPrice(price));
+        }
+
+        private String formatPrice(Price price) {
+            return EnglishLanguageSlovakNumberFormat.formatPrice(price);
         }
     }
 }

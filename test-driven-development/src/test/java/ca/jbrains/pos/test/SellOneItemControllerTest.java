@@ -40,10 +40,6 @@ public class SellOneItemControllerTest {
         Mockito.verify(display).displayScannedEmptyBarcodeMessage();
     }
 
-    public interface Catalog {
-        Option<Price> findPrice(String barcode);
-    }
-
     public interface Display {
         void displayPrice(Price price);
 

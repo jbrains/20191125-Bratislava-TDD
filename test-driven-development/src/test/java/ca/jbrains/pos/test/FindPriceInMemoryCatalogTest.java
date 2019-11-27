@@ -43,7 +43,7 @@ public class FindPriceInMemoryCatalogTest {
         );
     }
 
-    private static class InMemoryCatalog implements SellOneItemControllerTest.Catalog {
+    private static class InMemoryCatalog implements Catalog {
         private final Map<String, Price> pricesByBarcode;
 
         public InMemoryCatalog(Map<String, Price> pricesByBarcode) {

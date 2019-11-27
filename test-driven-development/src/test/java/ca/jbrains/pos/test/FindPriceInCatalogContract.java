@@ -18,7 +18,9 @@ public abstract class FindPriceInCatalogContract {
 
     @Test
     void productNotFound() throws Exception {
-        Assertions.assertEquals(Option.none(), catalogWithout("12345").findPrice("12345"));
+        final Catalog catalog = catalogWithout("12345");
+        
+        Assertions.assertEquals(Option.none(), catalog.findPrice("12345"));
     }
 
     protected abstract Catalog catalogWithout(String barcodeToAvoid);

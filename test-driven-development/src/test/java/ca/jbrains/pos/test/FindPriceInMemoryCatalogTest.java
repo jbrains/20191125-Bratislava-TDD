@@ -33,7 +33,9 @@ public class FindPriceInMemoryCatalogTest {
     private InMemoryCatalog catalogWithout(String barcodeToAvoid) {
         return new InMemoryCatalog(
                 new HashMap<>() {{
-                    put("99999", Price.cents(0));
+                    put(String.format("not %s", barcodeToAvoid), Price.cents(0));
+                    put(String.format("certainly not %s", barcodeToAvoid), Price.cents(0));
+                    put(String.format("definitely not %s, I swear it", barcodeToAvoid), Price.cents(0));
                 }}
         );
     }

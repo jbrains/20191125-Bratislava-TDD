@@ -8,6 +8,7 @@ import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Stream;
 
 public class DisplayMessagesToAWriterTest {
 
@@ -39,6 +40,26 @@ public class DisplayMessagesToAWriterTest {
         Assertions.assertEquals(
                 Arrays.asList("17,95\u00a0€"),
                 lines(canvas.toString()));
+    }
+
+    @Test
+    void severalMessages() throws Exception {
+        Stream.of("::barcode 1::", "::barcode 2::", "::barcode 3::").forEach(
+                writerDisplay::displayProductNotFoundMessage
+        );
+        writerDisplay.displayScannedEmptyBarcodeMessage();
+        writerDisplay.displayPrice(Price.cents(2499));
+
+        Assertions.assertEquals(
+                Arrays.asList(
+                        "Product not found: ::barcode 1::",
+                        "Product not found: ::barcode 2::",
+                        "Product not found: ::barcode 3::",
+                        "Scanning error: empty barcode",
+                        "24,99\u00a0€"
+                ),
+                lines(canvas.toString())
+        );
     }
 
     // REFACTOR Move me to a generic text-processing library

@@ -4,6 +4,8 @@ import net.jqwik.api.*;
 import net.jqwik.api.Tuple.Tuple2;
 import org.junit.jupiter.api.Assertions;
 
+import java.util.Locale;
+
 public class FormatPriceTest {
     @Data
     Iterable<Tuple2<Price, String>> examples() {
@@ -22,6 +24,6 @@ public class FormatPriceTest {
     void happyPath(@ForAll Price price, @ForAll String expectedFormat) throws Exception {
         Assertions.assertEquals(
                 String.format("%s\u00a0€", expectedFormat),
-                EnglishLanguageSlovakNumberFormat.formatPrice(price));
+                String.format(Locale.forLanguageTag("sk"), "%.2f\u00a0€", price.euro()));
     }
 }

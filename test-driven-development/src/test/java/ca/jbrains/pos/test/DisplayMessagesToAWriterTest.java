@@ -69,33 +69,22 @@ public class DisplayMessagesToAWriterTest {
     private static class WriterDisplay {
 
         private final PrintWriter out;
+        private final EnglishLanguageSlovakNumberFormat englishLanguageSlovakNumberFormat = new EnglishLanguageSlovakNumberFormat();
 
         public WriterDisplay(StringWriter canvas) {
             out = new PrintWriter(canvas);
         }
 
         public void displayScannedEmptyBarcodeMessage() {
-            out.println(formatScannedEmptyBarcodeMessage());
-        }
-
-        private String formatScannedEmptyBarcodeMessage() {
-            return "Scanning error: empty barcode";
+            out.println(englishLanguageSlovakNumberFormat.formatScannedEmptyBarcodeMessage());
         }
 
         public void displayProductNotFoundMessage(String barcodeNotFound) {
-            out.println(formatProductNotFoundMessage(barcodeNotFound));
-        }
-
-        private String formatProductNotFoundMessage(String barcodeNotFound) {
-            return String.format("Product not found: %s", barcodeNotFound);
+            out.println(englishLanguageSlovakNumberFormat.formatProductNotFoundMessage(barcodeNotFound));
         }
 
         public void displayPrice(Price price) {
-            out.println(formatPrice(price));
-        }
-
-        private String formatPrice(Price price) {
-            return EnglishLanguageSlovakNumberFormat.formatPrice(price);
+            out.println(englishLanguageSlovakNumberFormat.formatPrice(price));
         }
     }
 }

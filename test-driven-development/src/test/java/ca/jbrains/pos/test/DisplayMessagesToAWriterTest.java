@@ -63,7 +63,7 @@ public class DisplayMessagesToAWriterTest {
         }
 
         public void displayPrice(Price price) {
-            out.println(String.format(Locale.forLanguageTag("sk"), "%.2f\u00a0€", 17.95d));
+            out.println(String.format(Locale.forLanguageTag("sk"), "%.2f\u00a0€", price.euro()));
         }
     }
 }

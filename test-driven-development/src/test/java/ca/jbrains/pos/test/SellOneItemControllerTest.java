@@ -8,68 +8,62 @@ public class SellOneItemControllerTest {
     @Test
     void productFound() throws Exception {
         final Catalog catalog = Mockito.mock(Catalog.class);
-        final Display display = Mockito.mock(Display.class);
+        final SellOneItemControllerResponseMessageFormat sellOneItemControllerResponseMessageFormat = Mockito.mock(SellOneItemControllerResponseMessageFormat.class);
 
         final Price matchingPrice = Price.cents(795);
         Mockito.when(catalog.findPrice("::matching barcode::")).thenReturn(Option.of(matchingPrice));
 
-        new SellOneItemController(catalog, display).onBarcode("::matching barcode::");
+        new SellOneItemController(catalog, sellOneItemControllerResponseMessageFormat).onBarcode("::matching barcode::");
 
-        Mockito.verify(display).displayPrice(matchingPrice);
+        Mockito.verify(sellOneItemControllerResponseMessageFormat).formatPrice(matchingPrice);
     }
 
     @Test
     void productNotFound() throws Exception {
         final Catalog catalog = Mockito.mock(Catalog.class);
-        final Display display = Mockito.mock(Display.class);
+        final SellOneItemControllerResponseMessageFormat sellOneItemControllerResponseMessageFormat = Mockito.mock(SellOneItemControllerResponseMessageFormat.class);
 
         Mockito.when(catalog.findPrice("::missing barcode::")).thenReturn(Option.none());
 
-        new SellOneItemController(catalog, display).onBarcode("::missing barcode::");
+        new SellOneItemController(catalog, sellOneItemControllerResponseMessageFormat).onBarcode("::missing barcode::");
 
-        Mockito.verify(display).displayProductNotFoundMessage("::missing barcode::");
+        Mockito.verify(sellOneItemControllerResponseMessageFormat).formatProductNotFoundMessage("::missing barcode::");
     }
 
     @Test
     void emptyBarcode() throws Exception {
         final Catalog catalog = Mockito.mock(Catalog.class);
-        final Display display = Mockito.mock(Display.class);
+        final SellOneItemControllerResponseMessageFormat sellOneItemControllerResponseMessageFormat = Mockito.mock(SellOneItemControllerResponseMessageFormat.class);
 
-        new SellOneItemController(catalog, display).onBarcode("");
+        new SellOneItemController(catalog, sellOneItemControllerResponseMessageFormat).onBarcode("");
 
-        Mockito.verify(display).displayScannedEmptyBarcodeMessage();
-    }
-
-    public interface Display {
-        void displayPrice(Price price);
-
-        void displayProductNotFoundMessage(String missingBarcode);
-
-        void displayScannedEmptyBarcodeMessage();
+        Mockito.verify(sellOneItemControllerResponseMessageFormat).formatScannedEmptyBarcodeMessage();
     }
 
     public static class SellOneItemController {
         private final Catalog catalog;
-        private final Display display;
+        private final SellOneItemControllerResponseMessageFormat sellOneItemControllerResponseMessageFormat;
 
-        public SellOneItemController(Catalog catalog, Display display) {
+        public SellOneItemController(Catalog catalog, SellOneItemControllerResponseMessageFormat sellOneItemControllerResponseMessageFormat) {
             this.catalog = catalog;
-            this.display = display;
+            this.sellOneItemControllerResponseMessageFormat = sellOneItemControllerResponseMessageFormat;
         }
 
-        public void onBarcode(String barcode) {
+        public String onBarcode(String barcode) {
+            final String responseMessage;
             if ("".equals(barcode)) {
-                display.displayScannedEmptyBarcodeMessage();
-                return;
-            }
-            
-            final Option<Price> price = catalog.findPrice(barcode);
-            if (price.isEmpty()) {
-                display.displayProductNotFoundMessage(barcode);
+                responseMessage = sellOneItemControllerResponseMessageFormat.formatScannedEmptyBarcodeMessage();
             }
             else {
-                display.displayPrice(price.get());
+                final Option<Price> price = catalog.findPrice(barcode);
+                if (price.isEmpty()) {
+                    responseMessage = sellOneItemControllerResponseMessageFormat.formatProductNotFoundMessage(barcode);
+                }
+                else {
+                    responseMessage = sellOneItemControllerResponseMessageFormat.formatPrice(price.get());
+                }
             }
+            return responseMessage;
         }
     }
 }

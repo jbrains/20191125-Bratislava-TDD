@@ -18,6 +18,15 @@ public class FindPriceInMemoryCatalogTest {
         ).findPrice("12345"));
     }
 
+    @Test
+    void productNotFound() throws Exception {
+        Assertions.assertEquals(Option.none(), new InMemoryCatalog(
+                new HashMap<>() {{
+                    put("99999", Price.cents(0));
+                }}
+        ).findPrice("12345"));
+    }
+
     private static class InMemoryCatalog {
         private final Map<String, Price> pricesByBarcode;
 

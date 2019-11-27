@@ -31,6 +31,15 @@ public class DisplayMessagesToAWriterTest {
                 lines(canvas.toString()));
     }
 
+    @Test
+    void price() throws Exception {
+        writerDisplay.displayPrice(Price.cents(1795));
+
+        Assertions.assertEquals(
+                Arrays.asList("17,95\u00a0€"),
+                lines(canvas.toString()));
+    }
+
     // REFACTOR Move me to a generic text-processing library
     private static List<String> lines(String multilineText) {
         return Arrays.asList(multilineText.split("\\R"));
@@ -50,6 +59,10 @@ public class DisplayMessagesToAWriterTest {
 
         public void displayProductNotFoundMessage(String barcodeNotFound) {
             out.println(String.format("Product not found: %s", barcodeNotFound));
+        }
+
+        public void displayPrice(Price price) {
+            out.println("17,95\u00a0€");
         }
     }
 }

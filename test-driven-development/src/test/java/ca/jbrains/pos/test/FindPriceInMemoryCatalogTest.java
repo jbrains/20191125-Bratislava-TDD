@@ -12,12 +12,12 @@ public class FindPriceInMemoryCatalogTest {
     void productFound() throws Exception {
         final Price matchingPrice = Price.cents(795);
 
-        final InMemoryCatalog catalog = catalogWith("12345", matchingPrice);
+        final Catalog catalog = catalogWith("12345", matchingPrice);
 
         Assertions.assertEquals(Option.of(matchingPrice), catalog.findPrice("12345"));
     }
 
-    private InMemoryCatalog catalogWith(final String barcode, Price matchingPrice) {
+    private Catalog catalogWith(final String barcode, Price matchingPrice) {
         return new InMemoryCatalog(
                 new HashMap<>() {{
                     put(String.format("not %s", barcode), Price.cents(0));
@@ -33,7 +33,7 @@ public class FindPriceInMemoryCatalogTest {
         Assertions.assertEquals(Option.none(), catalogWithout("12345").findPrice("12345"));
     }
 
-    private InMemoryCatalog catalogWithout(String barcodeToAvoid) {
+    private Catalog catalogWithout(String barcodeToAvoid) {
         return new InMemoryCatalog(
                 new HashMap<>() {{
                     put(String.format("not %s", barcodeToAvoid), Price.cents(0));

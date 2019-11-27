@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class DisplayMessagesToAWriterTest {
-
     private StringWriter canvas = new StringWriter();
     private final WriterDisplay writerDisplay = new WriterDisplay(canvas);
 
@@ -40,7 +39,6 @@ public class DisplayMessagesToAWriterTest {
     }
 
     private static class WriterDisplay {
-
         private final PrintWriter out;
         private final EnglishLanguageSlovakNumberFormat englishLanguageSlovakNumberFormat = new EnglishLanguageSlovakNumberFormat();
 

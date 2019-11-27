@@ -9,10 +9,14 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DisplayMessagesToAWriterTest {
+
+    private StringWriter canvas = new StringWriter();
+    private final WriterDisplay writerDisplay = new WriterDisplay(canvas);
+
     @Test
     void emptyBarcode() throws Exception {
-        final StringWriter canvas = new StringWriter();
-        new WriterDisplay(canvas).displayScannedEmptyBarcodeMessage();
+        writerDisplay.displayScannedEmptyBarcodeMessage();
+
         Assertions.assertEquals(
                 Arrays.asList("Scanning error: empty barcode"),
                 lines(canvas.toString()));
@@ -20,8 +24,8 @@ public class DisplayMessagesToAWriterTest {
 
     @Test
     void productNotFound() throws Exception {
-        final StringWriter canvas = new StringWriter();
-        new WriterDisplay(canvas).displayProductNotFoundMessage("::missing barcode::");
+        writerDisplay.displayProductNotFoundMessage("::missing barcode::");
+
         Assertions.assertEquals(
                 Arrays.asList("Product not found: ::missing barcode::"),
                 lines(canvas.toString()));

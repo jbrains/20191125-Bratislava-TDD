@@ -13,4 +13,11 @@ public class FormatOtherMessagesInEnglishTest {
                 "Scanning error: empty barcode",
                 englishLanguageSlovakNumberFormat.formatScannedEmptyBarcodeMessage());
     }
+
+    @Test
+    void productNotFound() throws Exception {
+        Assertions.assertEquals(
+                "Product not found: ::missing barcode::",
+                englishLanguageSlovakNumberFormat.formatProductNotFoundMessage("::missing barcode::"));
+    }
 }

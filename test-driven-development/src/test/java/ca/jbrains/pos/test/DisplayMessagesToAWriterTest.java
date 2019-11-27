@@ -13,24 +13,6 @@ public class DisplayMessagesToAWriterTest {
 
     private StringWriter canvas = new StringWriter();
     private final WriterDisplay writerDisplay = new WriterDisplay(canvas);
-    
-    @Test
-    void productNotFound() throws Exception {
-        writerDisplay.displayProductNotFoundMessage("::missing barcode::");
-
-        Assertions.assertEquals(
-                Arrays.asList("Product not found: ::missing barcode::"),
-                lines(canvas.toString()));
-    }
-
-    @Test
-    void price() throws Exception {
-        writerDisplay.displayPrice(Price.cents(1795));
-
-        Assertions.assertEquals(
-                Arrays.asList("17,95\u00a0€"),
-                lines(canvas.toString()));
-    }
 
     @Test
     void severalMessages() throws Exception {

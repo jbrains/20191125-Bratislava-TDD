@@ -18,6 +18,15 @@ public class DisplayMessagesToAWriterTest {
                 lines(canvas.toString()));
     }
 
+    @Test
+    void productNotFound() throws Exception {
+        final StringWriter canvas = new StringWriter();
+        new WriterDisplay(canvas).displayProductNotFoundMessage("::missing barcode::");
+        Assertions.assertEquals(
+                Arrays.asList("Product not found: ::missing barcode::"),
+                lines(canvas.toString()));
+    }
+
     // REFACTOR Move me to a generic text-processing library
     private static List<String> lines(String multilineText) {
         return Arrays.asList(multilineText.split("\\R"));
@@ -33,6 +42,9 @@ public class DisplayMessagesToAWriterTest {
 
         public void displayScannedEmptyBarcodeMessage() {
             out.println("Scanning error: empty barcode");
+        }
+
+        public void displayProductNotFoundMessage(String barcodeNotFound) {
         }
     }
 }

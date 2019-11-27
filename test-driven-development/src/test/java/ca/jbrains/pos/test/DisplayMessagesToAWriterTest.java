@@ -5,13 +5,22 @@ import org.junit.jupiter.api.Test;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Arrays;
+import java.util.List;
 
 public class DisplayMessagesToAWriterTest {
     @Test
     void emptyBarcode() throws Exception {
         final StringWriter canvas = new StringWriter();
         new WriterDisplay(canvas).displayScannedEmptyBarcodeMessage();
-        Assertions.assertEquals("Scanning error: empty barcode", canvas.toString());
+        Assertions.assertEquals(
+                Arrays.asList("Scanning error: empty barcode"),
+                lines(canvas.toString()));
+    }
+
+    // REFACTOR Move me to a generic text-processing library
+    private static List<String> lines(String multilineText) {
+        return Arrays.asList(multilineText.split("\\R"));
     }
 
     private class WriterDisplay {

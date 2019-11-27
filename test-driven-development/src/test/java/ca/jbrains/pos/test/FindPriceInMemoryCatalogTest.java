@@ -10,7 +10,7 @@ import java.util.Map;
 public class FindPriceInMemoryCatalogTest {
     @Test
     void productFound() throws Exception {
-        final SellOneItemControllerTest.Price matchingPrice = SellOneItemControllerTest.Price.cents(795);
+        final Price matchingPrice = Price.cents(795);
         Assertions.assertEquals(Option.of(matchingPrice), new InMemoryCatalog(
                 new HashMap<>() {{
                     put("12345", matchingPrice);
@@ -19,13 +19,13 @@ public class FindPriceInMemoryCatalogTest {
     }
 
     private static class InMemoryCatalog {
-        private final Map<String, SellOneItemControllerTest.Price> pricesByBarcode;
+        private final Map<String, Price> pricesByBarcode;
 
-        public InMemoryCatalog(Map<String, SellOneItemControllerTest.Price> pricesByBarcode) {
+        public InMemoryCatalog(Map<String, Price> pricesByBarcode) {
             this.pricesByBarcode = pricesByBarcode;
         }
 
-        public Option<SellOneItemControllerTest.Price> findPrice(String barcode) {
+        public Option<Price> findPrice(String barcode) {
             return Option.of(pricesByBarcode.get(barcode));
         }
     }

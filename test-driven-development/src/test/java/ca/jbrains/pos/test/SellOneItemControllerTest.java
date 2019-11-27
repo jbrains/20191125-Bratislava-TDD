@@ -52,17 +52,6 @@ public class SellOneItemControllerTest {
         void displayScannedEmptyBarcodeMessage();
     }
 
-    public static class Price {
-        public static Price cents(int centsValue) {
-            return new Price();
-        }
-
-        @Override
-        public String toString() {
-            return "a Price";
-        }
-    }
-
     public static class SellOneItemController {
         private final Catalog catalog;
         private final Display display;

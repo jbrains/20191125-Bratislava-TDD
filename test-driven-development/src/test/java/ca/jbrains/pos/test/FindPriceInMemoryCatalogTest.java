@@ -19,11 +19,14 @@ public class FindPriceInMemoryCatalogTest {
     }
 
     private static class InMemoryCatalog {
+        private final Map<String, SellOneItemControllerTest.Price> pricesByBarcode;
+
         public InMemoryCatalog(Map<String, SellOneItemControllerTest.Price> pricesByBarcode) {
+            this.pricesByBarcode = pricesByBarcode;
         }
 
         public Option<SellOneItemControllerTest.Price> findPrice(String barcode) {
-            return Option.of(new SellOneItemControllerTest.Price());
+            return Option.of(pricesByBarcode.get(barcode));
         }
     }
 }

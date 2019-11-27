@@ -27,11 +27,15 @@ public class FindPriceInMemoryCatalogTest {
 
     @Test
     void productNotFound() throws Exception {
-        Assertions.assertEquals(Option.none(), new InMemoryCatalog(
+        Assertions.assertEquals(Option.none(), catalogWithout("12345").findPrice("12345"));
+    }
+
+    private InMemoryCatalog catalogWithout(String barcodeToAvoid) {
+        return new InMemoryCatalog(
                 new HashMap<>() {{
                     put("99999", Price.cents(0));
                 }}
-        ).findPrice("12345"));
+        );
     }
 
     private static class InMemoryCatalog {

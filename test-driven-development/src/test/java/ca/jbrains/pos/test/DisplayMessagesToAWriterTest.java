@@ -61,12 +61,6 @@ public class DisplayMessagesToAWriterTest {
         );
     }
 
-    public static class FormatPriceTest {
-        @Test
-        void happyPath() throws Exception {
-            Assertions.assertEquals("14,97\u00a0€", EnglishLanguageSlovakNumberFormat.formatPrice(Price.cents(1497)));
-        }
-    }
     // REFACTOR Move me to a generic text-processing library
     private static List<String> lines(String multilineText) {
         return Arrays.asList(multilineText.split("\\R"));

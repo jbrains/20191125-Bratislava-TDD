@@ -11,11 +11,18 @@ public class FindPriceInMemoryCatalogTest {
     @Test
     void productFound() throws Exception {
         final Price matchingPrice = Price.cents(795);
-        Assertions.assertEquals(Option.of(matchingPrice), new InMemoryCatalog(
+
+        final InMemoryCatalog catalog = catalogWith("12345", matchingPrice);
+
+        Assertions.assertEquals(Option.of(matchingPrice), catalog.findPrice("12345"));
+    }
+
+    private InMemoryCatalog catalogWith(final String barcode, Price matchingPrice) {
+        return new InMemoryCatalog(
                 new HashMap<>() {{
-                    put("12345", matchingPrice);
+                    put(barcode, matchingPrice);
                 }}
-        ).findPrice("12345"));
+        );
     }
 
     @Test

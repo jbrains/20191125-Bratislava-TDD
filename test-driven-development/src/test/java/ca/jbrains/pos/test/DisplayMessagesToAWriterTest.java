@@ -45,6 +45,7 @@ public class DisplayMessagesToAWriterTest {
         }
 
         public void displayProductNotFoundMessage(String barcodeNotFound) {
+            out.println(String.format("Product not found: %s", barcodeNotFound));
         }
     }
 }

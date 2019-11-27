@@ -7,17 +7,10 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FindPriceInMemoryCatalogTest {
-    @Test
-    void productFound() throws Exception {
-        final Price matchingPrice = Price.cents(795);
+public class FindPriceInMemoryCatalogTest extends FindPriceInCatalogContract {
 
-        final Catalog catalog = catalogWith("12345", matchingPrice);
-
-        Assertions.assertEquals(Option.of(matchingPrice), catalog.findPrice("12345"));
-    }
-
-    private Catalog catalogWith(final String barcode, Price matchingPrice) {
+    @Override
+    protected Catalog catalogWith(final String barcode, Price matchingPrice) {
         return new InMemoryCatalog(
                 new HashMap<>() {{
                     put(String.format("not %s", barcode), Price.cents(0));
@@ -28,12 +21,8 @@ public class FindPriceInMemoryCatalogTest {
         );
     }
 
-    @Test
-    void productNotFound() throws Exception {
-        Assertions.assertEquals(Option.none(), catalogWithout("12345").findPrice("12345"));
-    }
-
-    private Catalog catalogWithout(String barcodeToAvoid) {
+    @Override
+    protected Catalog catalogWithout(String barcodeToAvoid) {
         return new InMemoryCatalog(
                 new HashMap<>() {{
                     put(String.format("not %s", barcodeToAvoid), Price.cents(0));

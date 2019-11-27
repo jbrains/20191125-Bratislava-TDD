@@ -20,6 +20,9 @@ public class FindPriceInMemoryCatalogTest {
     private InMemoryCatalog catalogWith(final String barcode, Price matchingPrice) {
         return new InMemoryCatalog(
                 new HashMap<>() {{
+                    put(String.format("not %s", barcode), Price.cents(0));
+                    put(String.format("certainly not %s", barcode), Price.cents(0));
+                    put(String.format("definitely not %s, I swear it", barcode), Price.cents(0));
                     put(barcode, matchingPrice);
                 }}
         );
